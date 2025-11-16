@@ -1,0 +1,6 @@
+name: zmk-driver-m65legorev9
+build:
+  cmake: .
+  kconfig: Kconfig
+  settings:
+    dts_root: .

@@ -1,0 +1,42 @@
+description: M65 Lego Rev 9 matrix controller
+
+compatible: "m65legorev9,kscan"
+
+properties:
+  latch-gpio:
+    description: "Latch pin GPIO"
+    type: phandle
+    required: true
+  clock-gpio:
+    description: "Clock pin GPIO"
+    type: phandle
+    required: true
+  data-out-gpio:
+    description: "GPIO for shifting data out to the 74HC595"
+    type: phandle
+    required: true
+  data-in-gpio:
+    description: "GPIO for reading data in from 74HC165"
+    type: phandle
+    required: true
+  debounce-period:
+    type: int
+    required: false
+    deprecated: true
+    description: Deprecated. Use debounce-press-ms and debounce-release-ms instead.
+  debounce-press-ms:
+    type: int
+    default: 5
+    description: Debounce time for key press in milliseconds. Use 0 for eager debouncing.
+  debounce-release-ms:
+    type: int
+    default: 5
+    description: Debounce time for key release in milliseconds.
+  debounce-scan-period-ms:
+    type: int
+    default: 1
+    description: Time between reads in milliseconds when any key is pressed.
+  poll-period-ms:
+    type: int
+    default: 10
+    description: Time between reads in milliseconds when no key is pressed and ZMK_KSCAN_MATRIX_POLLING is enabled.
