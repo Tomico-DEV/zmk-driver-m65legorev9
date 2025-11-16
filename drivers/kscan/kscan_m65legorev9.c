@@ -9,7 +9,7 @@
 #include <zephyr/pm/device.h>
 #include <zephyr/sys/util.h>
 
-#include <zmk/debounce.h>
+#include "debounce.h"
 
 LOG_MODULE_DECLARE(m65legorev9, CONFIG_KSCAN_LOG_LEVEL);
 

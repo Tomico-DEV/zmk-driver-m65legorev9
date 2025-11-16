@@ -1,6 +1,5 @@
 zephyr_library_amend()
 
 zephyr_library_sources_ifdef(CONFIG_KSCAN_M65LEGOREV9
-  kscan_m65legorev9.c)
-
-zephyr_library_link_libraries(zmk_debounce)
+  kscan_m65legorev9.c
+  debounce.c)
