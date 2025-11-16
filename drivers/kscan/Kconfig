@@ -3,7 +3,6 @@ menuconfig KSCAN_M65LEGOREV9
   default y
   depends on GPIO
   depends on KSCAN
-  depends on ZMK_DEBOUNCE
   help
     Enable the driver for the M65 Lego Rev 9 keyboard matrix.
 
