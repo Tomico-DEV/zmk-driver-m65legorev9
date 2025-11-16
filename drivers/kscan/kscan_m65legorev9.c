@@ -11,7 +11,7 @@
 
 #include "debounce.h"
 
-LOG_MODULE_DECLARE(m65legorev9, CONFIG_KSCAN_LOG_LEVEL);
+LOG_MODULE_REGISTER(m65legorev9, CONFIG_KSCAN_LOG_LEVEL);
 
 #define DT_DRV_COMPAT m65legorev9_kscan
 
