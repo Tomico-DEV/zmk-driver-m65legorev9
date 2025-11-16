@@ -329,10 +329,10 @@ static const struct kscan_driver_api m65legorev9_api = {
 
 static struct m65legorev9_data m65legorev9_data;
 static const struct m65legorev9_config m65legorev9_config = {
-  .latch = GPIO_DT_SPEC_GET(DT_NODELABEL(m65legorev9), latch_gpio),
-  .clock = GPIO_DT_SPEC_GET(DT_NODELABEL(m65legorev9), clock_gpio),
-  .dout  = GPIO_DT_SPEC_GET(DT_NODELABEL(m65legorev9), data_out_gpio),
-  .din   = GPIO_DT_SPEC_GET(DT_NODELABEL(m65legorev9), data_in_gpio),
+  .latch = GPIO_DT_SPEC_GET(DT_NODELABEL(m65legorev9), latch_gpios),
+  .clock = GPIO_DT_SPEC_GET(DT_NODELABEL(m65legorev9), clock_gpios),
+  .dout  = GPIO_DT_SPEC_GET(DT_NODELABEL(m65legorev9), data_out_gpios),
+  .din   = GPIO_DT_SPEC_GET(DT_NODELABEL(m65legorev9), data_in_gpios),
 
   .debounce_config = {
       .debounce_press_ms = CONFIG_ZMK_KSCAN_DEBOUNCE_PRESS_MS,
