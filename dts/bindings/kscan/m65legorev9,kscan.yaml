@@ -3,25 +3,21 @@ description: M65 Lego Rev 9 matrix controller
 compatible: "m65legorev9,kscan"
 
 properties:
-  latch-gpio:
+  latch-gpios:
     description: "Latch pin GPIO"
     type: phandle-array
-    specifier-space: gpio
     required: true
-  clock-gpio:
+  clock-gpios:
     description: "Clock pin GPIO"
     type: phandle-array
-    specifier-space: gpio
     required: true
-  data-out-gpio:
+  data-out-gpios:
     description: "GPIO for shifting data out to the 74HC595"
     type: phandle-array
-    specifier-space: gpio
     required: true
-  data-in-gpio:
+  data-in-gpios:
     description: "GPIO for reading data in from 74HC165"
     type: phandle-array
-    specifier-space: gpio
     required: true
   debounce-period:
     type: int
