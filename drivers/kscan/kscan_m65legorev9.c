@@ -355,7 +355,7 @@ static const struct kscan_driver_api m65legorev9_api = {
     NULL,                                                                             \
     &m65legorev9_data_##n,                                                            \
     &m65legorev9_config_##n,                                                          \
-    POST_KERNEL, CONFIG_KSCAN_INIT_PRIORITY,                                          \
+    POST_KERNEL, CONFIG_KSCAN_M65LEGOREV9_INIT_PRIORITY,                                          \
     &m65legorev9_api);
 
 DT_INST_FOREACH_STATUS_OKAY(M65LEGOREV9_INIT);

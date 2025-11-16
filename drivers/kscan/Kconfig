@@ -1,0 +1,17 @@
+menuconfig KSCAN_M65LEGOREV9
+  bool "M65 Lego Rev 9 Keyboard Matrix"
+  default y
+  depends on GPIO
+  depends on KSCAN
+  help
+    Enable the driver for the M65 Lego Rev 9 keyboard matrix.
+
+if KSCAN_M65LEGOREV9
+
+config KSCAN_M65LEGOREV9_INIT_PRIORITY
+    int "M65 Lego Rev 9 initialization priority"
+    default KSCAN_INIT_PRIORITY
+    help
+      The initialization priority for the M65 Lego Rev 9 kscan driver.
+
+endif
