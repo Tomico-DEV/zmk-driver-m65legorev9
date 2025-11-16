@@ -200,7 +200,7 @@ static int m65legorev9_read(const struct device * dev)
 
       zmk_debounce_update(
         &data->matrix_state[key_n], (data_in & (1 << row)),
-        config->debounce_scan_period_ms, config->debounce_config);
+        config->debounce_scan_period_ms, &config->debounce_config);
       // encoder naturally goes to the 66th key. Nice!
     }
   }
