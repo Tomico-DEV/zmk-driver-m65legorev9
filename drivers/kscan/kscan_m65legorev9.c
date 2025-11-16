@@ -334,7 +334,7 @@ static const struct kscan_driver_api m65legorev9_api = {
     "ZMK_KSCAN_DEBOUNCE_RELEASE_MS or debounce-release-ms is too large");             \
                                                                                       \
   static struct m65legorev9_data m65legorev9_data_##n;                                \
-  static const struct m65legorev9_config m65lego_kscan_config_##n = {                 \
+  static const struct m65legorev9_config m65legorev9_config_##n = {                       \
     .latch = GPIO_DT_SPEC_INST_GET(n, latch_gpio),                                    \
     .clock = GPIO_DT_SPEC_INST_GET(n, clock_gpio),                                    \
     .dout  = GPIO_DT_SPEC_INST_GET(n, data_out_gpio),                                 \
@@ -350,7 +350,7 @@ static const struct kscan_driver_api m65legorev9_api = {
   };                                                                                  \
                                                                                       \
   DEVICE_DT_INST_DEFINE(                                                              \
-    inst,                                                                             \
+    n,                                                                                \
     &m65legorev9_init,                                                                \
     NULL,                                                                             \
     &m65legorev9_data_##n,                                                            \
