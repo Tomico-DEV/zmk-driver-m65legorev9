@@ -277,6 +277,8 @@ static int m65legorev9_disable(const struct device *dev) {
 
 static int m65legorev9_init(const struct device * dev)
 {
+  printk("*** M65LEGOREV9 INIT START ***\n");
+  
   const struct m65legorev9_config * config = dev->config;
   struct m65legorev9_data * data = dev->data;
 
