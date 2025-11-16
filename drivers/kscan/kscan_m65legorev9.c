@@ -327,32 +327,35 @@ static const struct kscan_driver_api m65legorev9_api = {
   .disable_callback = m65legorev9_disable,
 };
 
-static struct m65legorev9_data m65legorev9_data;
-static const struct m65legorev9_config m65legorev9_config = {
-    .latch = GPIO_DT_SPEC_INST_GET(0, latch_gpio),
-    .clock = GPIO_DT_SPEC_INST_GET(0, clock_gpio),
-    .dout  = GPIO_DT_SPEC_INST_GET(0, data_out_gpio),
-    .din   = GPIO_DT_SPEC_INST_GET(0, data_in_gpio),
+#define M65LEGOREV9_INIT(n)                                                           \
+  BUILD_ASSERT(INST_DEBOUNCE_PRESS_MS(n) <= DEBOUNCE_COUNTER_MAX,                     \
+    "ZMK_KSCAN_DEBOUNCE_PRESS_MS or debounce-press-ms is too large");                 \
+  BUILD_ASSERT(INST_DEBOUNCE_RELEASE_MS(n) <= DEBOUNCE_COUNTER_MAX,                   \
+    "ZMK_KSCAN_DEBOUNCE_RELEASE_MS or debounce-release-ms is too large");             \
+                                                                                      \
+  static struct m65legorev9_data m65legorev9_data_##n;                                \
+  static const struct m65legorev9_config m65lego_kscan_config_##n = {                 \
+    .latch = GPIO_DT_SPEC_INST_GET(n, latch_gpio),                                    \
+    .clock = GPIO_DT_SPEC_INST_GET(n, clock_gpio),                                    \
+    .dout  = GPIO_DT_SPEC_INST_GET(n, data_out_gpio),                                 \
+    .din   = GPIO_DT_SPEC_INST_GET(n, data_in_gpio),                                  \
+                                                                                      \
+    .debounce_config =                                                                \
+      {                                                                               \
+        .debounce_press_ms = INST_DEBOUNCE_PRESS_MS(n),                               \
+        .debounce_release_ms = INST_DEBOUNCE_RELEASE_MS(n),                           \
+      },                                                                              \
+    .debounce_scan_period_ms = DT_INST_PROP(n, debounce_scan_period_ms),              \
+    .poll_period_ms = DT_INST_PROP(n, poll_period_ms),                                \
+  };                                                                                  \
+                                                                                      \
+  DEVICE_DT_INST_DEFINE(                                                              \
+    inst,                                                                             \
+    &m65legorev9_init,                                                                \
+    NULL,                                                                             \
+    &m65legorev9_data_##n,                                                            \
+    &m65legorev9_config_##n,                                                          \
+    POST_KERNEL, CONFIG_KSCAN_INIT_PRIORITY,                                          \
+    &m65legorev9_api);
 
-    .debounce_config = {
-        .debounce_press_ms = CONFIG_ZMK_KSCAN_DEBOUNCE_PRESS_MS,
-        .debounce_release_ms = CONFIG_ZMK_KSCAN_DEBOUNCE_RELEASE_MS,
-    },
-    .debounce_scan_period_ms = CONFIG_ZMK_KSCAN_SCAN_PERIOD_MS,
-    .poll_period_ms = CONFIG_ZMK_KSCAN_POLL_PERIOD_MS,
-};
-
-#define M65LEGO_KSCAN_INIT(inst)                                                       \
-    static const struct m65lego_kscan_config m65lego_kscan_config_##inst = {           \
-        .latch_gpio = GPIO_DT_SPEC_INST_GET(inst, latch_gpios),                        \
-    };                                                                                 \
-                                                                                       \
-    DEVICE_DT_INST_DEFINE(inst,                                                        \
-                          m65lego_kscan_init,                                          \
-                          NULL,                                                        \
-                          NULL,                                                        \
-                          &m65lego_kscan_config_##inst,                                \
-                          POST_KERNEL, CONFIG_KSCAN_INIT_PRIORITY,                     \
-                          &m65lego_kscan_api);
-
-DT_INST_FOREACH_STATUS_OKAY(M65LEGO_KSCAN_INIT);
+DT_INST_FOREACH_STATUS_OKAY(M65LEGOREV9_INIT);
