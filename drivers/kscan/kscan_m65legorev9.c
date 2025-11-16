@@ -15,19 +15,12 @@ LOG_MODULE_DECLARE(m65legorev9, CONFIG_KSCAN_LOG_LEVEL);
 
 #define DT_DRV_COMPAT m65legorev9_kscan
 
-#if CONFIG_ZMK_KSCAN_DEBOUNCE_PRESS_MS >= 0
-#define INST_DEBOUNCE_PRESS_MS(n) CONFIG_ZMK_KSCAN_DEBOUNCE_PRESS_MS
-#else
 #define INST_DEBOUNCE_PRESS_MS(n)                                                                  \
-    DT_INST_PROP_OR(n, debounce_period, DT_INST_PROP(n, debounce_press_ms))
-#endif
+  DT_INST_PROP_OR(n, debounce_period, DT_INST_PROP(n, debounce_press_ms))
 
-#if CONFIG_ZMK_KSCAN_DEBOUNCE_RELEASE_MS >= 0
-#define INST_DEBOUNCE_RELEASE_MS(n) CONFIG_ZMK_KSCAN_DEBOUNCE_RELEASE_MS
-#else
 #define INST_DEBOUNCE_RELEASE_MS(n)                                                                \
-    DT_INST_PROP_OR(n, debounce_period, DT_INST_PROP(n, debounce_release_ms))
-#endif
+  DT_INST_PROP_OR(n, debounce_period, DT_INST_PROP(n, debounce_release_ms))
+
 
 struct m65legorev9_data {
   const struct device * dev;
@@ -200,7 +193,7 @@ static int m65legorev9_read(const struct device * dev)
 
       zmk_debounce_update(
         &data->matrix_state[key_n], (data_in & (1 << row)),
-        config->debounce_scan_period_ms, config->debounce_config);
+        config->debounce_scan_period_ms, &config->debounce_config);
       // encoder naturally goes to the 66th key. Nice!
     }
   }
@@ -284,7 +277,7 @@ static int m65legorev9_disable(const struct device *dev) {
 
 static int m65legorev9_init(const struct device * dev)
 {
-  struct m65legorev9_config * config = dev->config;
+  const struct m65legorev9_config * config = dev->config;
   struct m65legorev9_data * data = dev->data;
 
   data->dev = dev;
